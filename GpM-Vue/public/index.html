@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Groupo Mania</title>
+  <meta name="author" content="Your Name">
+  <meta name="description" content="Example description">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="groupo.css">
+  <link rel="icon" type="image/x-icon" href="favicon.png" />
+</head>
+
+<body>
+ 
+   <div class="container-fluid">
+    <header>
+      <div class="col-lg-12 head">
+        <div class="hero" > </div>
+      </div>
+    </header>
+    
+    <main>
+      <section class="col-lg-12">
+        <figure class="col-lg-8 offset-lg-2 " id="logo">
+       <img class="img-fluid logoenter" src="icon2.png" id="logokey" alt="icon groupomania" >
+        </figure>
+      </section>
+     
+      <section id=create>
+
+      </section>
+      <p id="confMessage"></p>
+      <section    class="justify-content-lg-center">
+
+        <!--Vue form-->
+       <form id="appform" >
+          <p v-if="errors.length">
+          <b>S'il vous plait, merci de:</b>
+           <ul>
+              <li v-for="error in errors">{{ error }}</li>
+            </ul>
+          </p>
+            <label for="name"> email: </label>
+             <input id="name" v-model="email" type="text" name="email">
+
+            <label for="name"> mot de passe : </label>
+             <input id="name" v-model="mdp" type="text" name="mdp">
+            <section>
+              <button id="btn-signup" type="submit" @click="createUser">Créer un compte</button>
+              <button id="btn-cnt" @click="loginuser" >Se connecter</button>
+            </section>
+              
+
+        </form>
+       
+      </section>
+      <section id="connected">
+        
+      </section>
+    </main>
+    
+    <footer>
+      <div class="col-lg-12">
+        <ol>
+        </ol>
+      </div>
+      <div class="col-lg-12">
+        <ol>
+        </ol>
+      </div>
+    </footer>
+  </div>
+  <!-- development version, includes helpful console warnings -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script type="text/javascript" src="vueapp.js"></script>
+</body>
+
+</html>

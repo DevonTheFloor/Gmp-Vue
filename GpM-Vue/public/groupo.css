@@ -1,0 +1,74 @@
+html {
+  min-height: 100%; }
+
+body {
+  min-height: 100%;
+  background-image: url("groupoBG.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed; }
+
+.container-fluid {
+  margin: 0ps;
+  padding: 0px;
+  min-height: 100%; }
+
+@keyframes turn {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+.logoenter {
+  animation-name: turn;
+  animation-duration: 3000ms;
+  animation-iteration-count: 5;
+  transform: scale(1);
+  transition: transform 2000ms cubic-bezier(0.32, 0, 0.07, 1); }
+  .logoenter:hover {
+    transform: scale(1.1); }
+
+.img-fluid {
+  align-items: center; }
+
+section {
+  margin: 1%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 1%; }
+
+#confMessage{
+  color: blue;
+}
+
+.menuSom {
+  border: 2px solid grey;
+  border-radius: 5px;
+  background-color: beige;
+  box-shadow: 2px 2px 2px 8px white;
+  margin: 3%;
+  padding: 2%;
+  transform: scale(1) 3000ms cubic-bezier(0.32, 0, 0.07, 1); }
+  .menuSom:hover {
+    transform: scale(1.2);
+    box-shadow: 5px 5px 5px 12px white; }
+  .menuSom:active {
+    background-color: grey;
+    color: white; }
+
+
+
+@media (max-width: 560px) {
+  .menuSom {
+    border: 1px solid grey;
+    border-radius: 5px;
+    background-color: beige;
+    box-shadow: 1px 1px 1px 4px white;
+    margin: 3%;
+    padding: 2%;
+    transform: scale(1) linear 3000; }
+    .menuSom:active {
+      background-color: grey;
+      color: white; } }
+
+/*# sourceMappingURL=groupo.css.map */
