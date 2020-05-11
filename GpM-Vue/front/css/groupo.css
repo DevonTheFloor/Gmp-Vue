@@ -34,9 +34,6 @@ body {
   width: 100%;
   min-height: 20px;
   max-height: 200px;
-  background-image: url("../images/logo/ban2.png");
-  background-size: cover;
-  background-repeat: no-repeat;
   align-items: center; }
 
 .img-responsive {
