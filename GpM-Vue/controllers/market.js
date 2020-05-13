@@ -16,16 +16,18 @@ exports.postOne = (req,res,next)=>{
 
     let urlimg = "https://voiture.kidioui.fr/image/img-auto/fiat-punto.jpg";
     let categorie = req.body.categorie;
+    categorie = "voiture";
     let annonce = req.body.annonce;
     let titre = req.body.titre;
     console.log("req.body = ",req.body);
     console.log("Connecté mySQL on Xampp !!");
+    var inserts = [titre,categorie,annonce,urlimg];
       var sql = "INSERT INTO market VALUES(NULL,?,?,?,?,NOW())";
-      var inserts = [titre,categorie,annonce,urlimg];
+     
       sql = mysql.format(sql,inserts);
       connectdb.query(sql, function(err,result){
           if (err) throw err ;
           console.log("Article mit en vente");
-          res.redirect("/market.html");
+          res.redirect("/api/market.html");
       });
   }

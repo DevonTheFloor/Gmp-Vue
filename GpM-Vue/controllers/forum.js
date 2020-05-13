@@ -16,7 +16,7 @@ exports.postOne = (req,res,next)=>{
     connectdb.query(sql, function(err,result){
         if (err) throw err ;
         console.log("Message posté");
-        res.redirect("/forum.html");
+        res.redirect("/api/forum.html");
     });
 }
 

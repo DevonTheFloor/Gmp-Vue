@@ -5,10 +5,10 @@ const usersRouter = require('./routes/users');
 const forumRouter = require('./routes/forum');
 const marketRouter = require('./routes/market');
 const rezoRouter = require('./routes/rezo');
-const mysql = require('mysql');
-const connectdb = require('./queries/connectdb');
+//const mysql = require('mysql');
+//const connectdb = require('./queries/connectdb');
 
-const multer = require('./middleware/multer-config');
+//const multer = require('./middleware/multer-config');
 
 const app = express();
 

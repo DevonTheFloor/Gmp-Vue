@@ -28,10 +28,20 @@
 
     <main>
         <form action="http://localhost:3030/api/forum/post" method="post">
+          FORUM
             <label>titre : <input type="text" id="titre" name="titre"> </label>
             <label>auteur: <input type="text" id="auteur" name="auteur"> </label>
             <label>message: <textarea></textarea> </label>
             <button type="submit">test form</button>
+        </form>
+
+        <form action="http://localhost:3030/api/market/post" method="post">
+          MARKET
+            <label>titre : <input type="text" id="titre" name="titre"> </label>
+            <label>categorie : <input type="text" id="categorie" name="categorie"> </label>
+            <label>message: <textarea id="annonce" name="annonce"></textarea> </label>
+            
+            <button type="submit">test market</button>
         </form>
  
     </main>
