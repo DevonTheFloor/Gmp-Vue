@@ -15,7 +15,11 @@ exports.getAll = (req,res,next)=>{
           });
   }
 
-exports.postOne = (req,res,next)=>{
+exports.postOne = (req,res,err,next)=>{
+  console.log("req = ",req);
+  let objrq = req;
+  console.log(Object.prototype.watch(objrq));
+  console.log(err.stack);
     let object = req.body.file;
     console.log("reqfile = ",object);
     let urlimg = "coucou";
@@ -26,7 +30,8 @@ exports.postOne = (req,res,next)=>{
     console.log("req.body = ",req.body);
     console.log("Connecté mySQL on Xampp !!");
     var inserts = [titre,categorie,annonce,urlimg];
-      var sql = "INSERT INTO market VALUES(NULL,?,?,?,?,NOW())";
+    //var sql = "INSERT INTO market VALUES(NULL?,?,?,?,NOW())";
+      var sql = "INSERT INTO market (titre,categorie,annonce,urlimg) VALUES(?,?,?,NOW())";
      
       sql = mysql.format(sql,inserts);
       connectdb.query(sql, function(err,result){

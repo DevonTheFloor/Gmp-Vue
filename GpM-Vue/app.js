@@ -5,11 +5,8 @@ const usersRouter = require('./routes/users');
 const forumRouter = require('./routes/forum');
 const marketRouter = require('./routes/market');
 const rezoRouter = require('./routes/rezo');
-const testRouter = require('./routes/testor');
-//const mysql = require('mysql');
-//const connectdb = require('./queries/connectdb');
+const testRouter = require('./routes/test');
 
-//const multer = require('./middleware/multer-config');
 
 const app = express();
 
@@ -33,7 +30,7 @@ app.use("/ok/",(req,res,next)=>{
 
 
 app.use("/api/",express.static(path.join(__dirname, 'front')));
-app.use('/api/test/',testRouter);
+app.use('/api/test',testRouter);
 app.use('/api/auth',usersRouter);
 app.use("/api/forum",forumRouter);
 app.use('/api/market', marketRouter);
