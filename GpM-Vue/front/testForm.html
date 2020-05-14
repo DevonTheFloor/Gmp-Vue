@@ -34,7 +34,8 @@
             <label>message: <textarea></textarea> </label>
             <button type="submit">test form</button>
         </form>
-
+<br>
+==========================================================
         <form action="http://localhost:3030/api/market/post" method="post">
           MARKET
             <label>titre : <input type="text" id="titre" name="titre"> </label>
@@ -42,6 +43,16 @@
             <label>message: <textarea id="annonce" name="annonce"></textarea> </label>
             
             <button type="submit">test market</button>
+        </form>
+============================================================
+<br>
+        <form action="http://localhost:3030/api/test/post" method="post" enctype="multipart/form-data">
+          TEST FORM POUR TEST LES METHOD OBJECT DE REQ
+            <label> input text: <input type="text" id="inputtext" name="inputtext"> </label>
+            <label>input number: <input type="number" id="inputnumber" name="inputnumber"> </label>
+            <label>textarea: <textarea id="text" name="text"></textarea> </label>
+            <label>File: <input type="file" id="file" name="file"> </label>
+            <button type="submit">TEST OBJ</button>
         </form>
  
     </main>
