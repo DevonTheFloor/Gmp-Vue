@@ -10,7 +10,8 @@ exports.postOne = (req,res,next)=>{
     let message = req.body.message;
 
     console.log("Connecté mySQL on Xampp !!");
-    var sql = "INSERT INTO forum VALUES(NULL,?,?,?,NOW())";
+    //var sql = "INSERT INTO forum VALUES(NULL,?,?,?,NOW())";
+    var sql = "INSERT INTO forum (titre,auteur,message) VALUES(?,?,?,NOW())";
     var inserts = [titre,auteur,message];
     sql = mysql.format(sql,inserts);
     connectdb.query(sql, function(err,result){

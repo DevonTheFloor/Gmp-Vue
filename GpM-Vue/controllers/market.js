@@ -1,5 +1,8 @@
 const mysql = require('mysql');
 const connectdb = require('../queries/connectdb');
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 
 
 exports.getAll = (req,res,next)=>{
@@ -13,10 +16,11 @@ exports.getAll = (req,res,next)=>{
   }
 
 exports.postOne = (req,res,next)=>{
-
-    let urlimg = "https://voiture.kidioui.fr/image/img-auto/fiat-punto.jpg";
+    let object = req.body.file;
+    console.log("reqfile = ",object);
+    let urlimg = "coucou";
+    //console.log("filname =",urlimage);
     let categorie = req.body.categorie;
-    categorie = "voiture";
     let annonce = req.body.annonce;
     let titre = req.body.titre;
     console.log("req.body = ",req.body);
