@@ -2,7 +2,7 @@
 
 exports.gettest = (req,res,next)=>{
     console.log("Route GET Test!!");
-    console.log(err.stack);
+    //console.log(err.stack);
     res.status(200).json({message: "coucou le test GET!"});
   }
 
