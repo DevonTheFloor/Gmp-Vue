@@ -44,6 +44,7 @@ poster.addEventListener("click", function(){
 	formulaire.setAttribute("class","formForum");
 	formulaire.setAttribute("action","/api/forum/post");
 	formulaire.setAttribute("method","post");
+	formulaire.setAttribute("enctype","multipart/form-data");
 	ancre.appendChild(formulaire);
 	let libele = document.createElement('label');
 	libele.textContent = "Titre : ";
@@ -56,6 +57,11 @@ poster.addEventListener("click", function(){
 	sujet.id ="message";
 	sujet.name = "message";
 	formulaire.appendChild(sujet);
+	let image = document.createElement('input');
+	image.type = "file";
+	image.id= "file";
+	image.name = "file";
+	formulaire.appendChild(image);
 	let envoi = document.createElement('button');
 	envoi.id ="envoyer";
 	envoi.setAttribute("type","submit");

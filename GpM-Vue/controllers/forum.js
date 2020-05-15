@@ -4,15 +4,14 @@ const connectdb = require('../queries/connectdb');
 exports.postOne = (req,res,next)=>{
 
     let titre = req.body.titre;
-    console.log(titre);
     let auteur= "lautre";
-    console.log(auteur);
     let message = req.body.message;
+    let urlimg = "/api/images/dl/"+req.file.filename;
 
     console.log("Connecté mySQL on Xampp !!");
     //var sql = "INSERT INTO forum VALUES(NULL,?,?,?,NOW())";
-    var sql = "INSERT INTO forum (titre,auteur,message) VALUES(?,?,?,NOW())";
-    var inserts = [titre,auteur,message];
+    var sql = "INSERT INTO forum (titre,auteur,message,urlimg) VALUES(NULL,?,?,?,?,NOW())";
+    var inserts = [titre,auteur,message,urlimg];
     sql = mysql.format(sql,inserts);
     connectdb.query(sql, function(err,result){
         if (err) throw err ;
