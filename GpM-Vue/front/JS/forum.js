@@ -39,7 +39,6 @@ let poster = document.getElementById('postforum');
 poster.addEventListener("click", function(){
 	let ancre = document.getElementById('message');
 	ancre.innerHTML= "";
-
 	let formulaire = document.createElement('form');
 	formulaire.setAttribute("class","formForum");
 	formulaire.setAttribute("action","/api/forum/post");

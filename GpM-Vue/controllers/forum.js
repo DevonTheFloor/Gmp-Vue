@@ -9,8 +9,8 @@ exports.postOne = (req,res,next)=>{
     let urlimg = "/api/images/dl/"+req.file.filename;
 
     console.log("Connecté mySQL on Xampp !!");
-    //var sql = "INSERT INTO forum VALUES(NULL,?,?,?,NOW())";
-    var sql = "INSERT INTO forum (titre,auteur,message,urlimg) VALUES(NULL,?,?,?,?,NOW())";
+    var sql = "INSERT INTO forum VALUES(NULL,?,?,?,?,NOW())";
+    //var sql = "INSERT INTO forum (titre,auteur,message,urlimg) VALUES(?,?,?,?,NOW()))";
     var inserts = [titre,auteur,message,urlimg];
     sql = mysql.format(sql,inserts);
     connectdb.query(sql, function(err,result){
