@@ -34,19 +34,26 @@
         </section>
       </div>
 
-      <button id="postforum">Poster un message</button>
+      <div id="getOne" class=" justify-content-lg-center " >
 
-      <div id="formpost" class=" justify-content-lg-center " >
-
-        <section class=" col-lg-10" v-for="item in info.data" :key="item.id">
+        <section class=" col-lg-10" v-for="item in info" :key="item.id">
           <div class="listForum" >
-            <button v-if="isadmin == 1">X</button>
-            <a href="/api/postVue.html"><h2> {{ item.titre }} </h2></a>
-            <p> {{ item.auteur }} </p>
-            <p> {{ item.message }} </p>
+            <h2>{{ item.titre}} </h2>
+            <p>Par : {{ item.auteur }}</p>
+            <p>le: {{item.quand }}</p>
+            <p class="msgForum"> {{ item.message}} </p>
+            <p> </p>
+            <form class="repForum">
+              <label> auteur : <input type="text" id="auteur" name="auteur"> </label>
+              <label> message : <input type="text" id="message" name="message"> </label>
+              <label>Fichier : <input type="file" id="file" name="file"> </label>
+              <button>Répondre</button>
+            </form>
+            
           </div>
-        </section>
-   
+				</section>
+				<p>{{info}} </p>
+
       </div>
      
     </main>
@@ -74,25 +81,27 @@
   <script src="JS/axios.js"></script>
 	<script>
 		const formpost = new Vue({
-			el:"#formpost",
+			el:"#getOne",
 			data:{
-        message: "petiti test",
-        info : null
+				info : null
       },
      mounted(){
-       let getone = document.getElementById('getOne');
 
-      var config = {
-      headers: { 
-        'Access-Control-Allow-Origin': '*',
-        }
-      };
-       axios.get('http://localhost:3030/api/forum/posts',  config)
-      .then((response) => {
-      this.info = response,
-      console.log(response)
-      })
-      .catch(error => console.log(error));
+			axios.get('/api/forum/post/:id', {
+    		params: {
+      	  id : 5
+    		}
+  			})
+  				.then(response=>{
+						this.info = response.data;
+    			console.log(response.data);
+  				})
+  					.catch(function (error) {
+    				console.log(error);
+					})
+					.then(function () {
+    				console.log('FINALY');
+  				});
       } 
 		})
 	</script>

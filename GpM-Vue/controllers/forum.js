@@ -31,3 +31,21 @@ exports.getAll = (req,res,next)=>{
         });
 }
 
+exports.getOne = (req,res,next)=>{
+
+    let _id = 5;
+    console.log("id = ",_id);
+ 
+    console.log("Connecté mySQL on Xampp !!");
+    var sql = "SELECT * FROM forum WHERE _id=?";
+
+    var inserts = [_id];
+    sql = mysql.format(sql,inserts);
+    connectdb.query(sql, function(err,result){
+        if (err) throw err ;
+        console.log("Connexion ok");
+        res.status(200).json(result);
+        console.log("result = ",result);
+    });
+}
+

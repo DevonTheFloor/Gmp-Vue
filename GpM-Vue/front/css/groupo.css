@@ -146,6 +146,20 @@ ol {
     background-color: ivory;
     color: black; }
 
+.repForum {
+  padding: 1%;
+  width: auto;
+  border: 2px solid #f3e2b9;
+  border-radius: 10px;
+  background-color: #f8cec1; }
+
+.msgForum {
+  border: 2px solid rgba(255, 255, 255, 0.794);
+  background-color: #f8f8f1;
+  border-radius: 10px;
+  padding: 1%;
+  margin: 1%; }
+
 @media (max-width: 560px) {
   .menuSom {
     border: 1px solid grey;
