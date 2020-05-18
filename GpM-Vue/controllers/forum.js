@@ -33,7 +33,7 @@ exports.getAll = (req,res,next)=>{
 
 exports.getOne = (req,res,next)=>{
 
-    let _id = 5;
+    let _id = req.params.id;
     console.log("id = ",_id);
  
     console.log("Connecté mySQL on Xampp !!");

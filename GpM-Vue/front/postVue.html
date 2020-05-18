@@ -86,11 +86,16 @@
 				info : null
       },
      mounted(){
+       //récupération de l'id du message dans l'url
+      let params = new URLSearchParams(document.location.search);
+      console.log(params);
+      let _id = params.get("id");
+      console.log('id= ' + _id);
 
 			axios.get('/api/forum/post/:id', {
     		params: {
-      	  id : 5
-    		}
+          id : this._id
+        }
   			})
   				.then(response=>{
 						this.info = response.data;

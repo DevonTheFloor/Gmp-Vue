@@ -41,7 +41,7 @@
         <section class=" col-lg-10" v-for="item in info.data" :key="item.id">
           <div class="listForum" >
             <button v-if="isadmin == 1">X</button>
-            <a href="/api/postVue.html"><h2> {{ item.titre }} </h2></a>
+            <a :href="'/api/postVue.html?id='+item._id"><h2> {{ item.titre }} </h2></a>
             <p> {{ item.auteur }} </p>
             <p> {{ item.message }} </p>
           </div>
@@ -76,15 +76,13 @@
 		const formpost = new Vue({
 			el:"#formpost",
 			data:{
-        message: "petiti test",
         info : null
       },
      mounted(){
-       let getone = document.getElementById('getOne');
 
       var config = {
       headers: { 
-        'Access-Control-Allow-Origin': '*',
+
         }
       };
        axios.get('http://localhost:3030/api/forum/posts',  config)
