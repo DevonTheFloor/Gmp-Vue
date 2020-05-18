@@ -8,6 +8,7 @@ const rezoRouter = require('./routes/rezo');
 const testRouter = require('./routes/test');
 
 
+
 const app = express();
 
 app.use((req, res, next) => {
@@ -35,6 +36,7 @@ app.use('/api/auth',usersRouter);
 app.use("/api/forum",forumRouter);
 app.use('/api/market', marketRouter);
 app.use('/api/rezo',rezoRouter);
+
 
 
 

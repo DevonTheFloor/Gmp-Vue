@@ -43,15 +43,31 @@
             <p>le: {{item.quand }}</p>
             <p class="msgForum"> {{ item.message}} </p>
             <p> </p>
-            <form class="repForum">
-              <label> auteur : <input type="text" id="auteur" name="auteur"> </label>
-              <label> message : <input type="text" id="message" name="message"> </label>
-              <label>Fichier : <input type="file" id="file" name="file"> </label>
-              <button>Répondre</button>
-            </form>
-            
+
+            <section class="reponseForum">
+              <div class="listForum" >
+               <p>Par :</p>
+               <p>le: </p>
+               <p class="msgForum"> </p>
+               <p> </p>
+             </div>
+            </section>
+
+            <section>
+              <form class="repForum" action="/api/res/forum">
+                <label> auteur : <input type="text" id="auteur" name="auteur"> </label>
+                <label> message : <input type="text" id="message" name="message"> </label>
+                <label>Fichier : <input type="file" id="file" name="file"> </label>
+                <button>Répondre</button>
+              </form>
+            </section>
+
           </div>
-				</section>
+        </section >
+       
+  
+        
+
 				<p>{{info}} </p>
 
       </div>
@@ -85,18 +101,22 @@
 			data:{
 				info : null
       },
+      methods:{
+        
+      },
      mounted(){
-       //récupération de l'id du message dans l'url
+    
+      //récupération de l'id du message dans l'url
       let params = new URLSearchParams(document.location.search);
       console.log(params);
       let _id = params.get("id");
       console.log('id= ' + _id);
 
-			axios.get('/api/forum/post/:id', {
-    		params: {
-          id : this._id
+			axios.get("/api/forum/post/5",{
+        params: {
+          id : 5
         }
-  			})
+      })
   				.then(response=>{
 						this.info = response.data;
     			console.log(response.data);

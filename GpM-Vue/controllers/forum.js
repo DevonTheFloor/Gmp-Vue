@@ -49,3 +49,21 @@ exports.getOne = (req,res,next)=>{
     });
 }
 
+exports.resMsg = (req,res,next)=>{
+
+    let salon = "forum";
+    let id_msg = 5;
+    let auteur= "lautre";
+    let message = req.body.message;
+    let urlimg = "/api/images/dl/"+req.file.filename;
+
+    console.log("Connecté mySQL on Xampp !!");
+    var sql = "INSERT INTO reponse VALUES(NULL,?,?,?,?,?,NOW())";
+    //var sql = "INSERT INTO forum (titre,auteur,message,urlimg) VALUES(?,?,?,?,NOW()))";
+    var inserts = [auteur,message,urlimg,idquestion,salon,quand];
+    sql = mysql.format(sql,inserts);
+    connectdb.query(sql, function(err,result){
+        if (err) throw err ;
+        console.log("Reponse posté");
+    });
+}
