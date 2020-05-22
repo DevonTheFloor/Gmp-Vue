@@ -6,14 +6,15 @@ module.exports = (req, res, next) => {
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     //Dial0go_s0pra_i_dÛe_m@ssimi_6temi_d-L_mondo
     const email = decodedToken.email;
-    if (req.body.email && req.body.email !== ) {
+    if (req.body.email && req.body.email !== email) {
       throw 'Unknow user\'s email';
     } else {
       next();
     }
   } catch {
     res.status(401).json({
-      error: new Error("No token in header")
+      message: "Thanks to signup befor login"
+     // error: new Error("No token in header")
     });
   }
 };

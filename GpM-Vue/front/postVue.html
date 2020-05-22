@@ -54,11 +54,11 @@
             </section>
 
             <section>
-              <form class="repForum" action="/api/res/forum">
+              <form class="repForum" action="/api/forum/response" method="post" enctype="multipart/form-data">
                 <label> auteur : <input type="text" id="auteur" name="auteur"> </label>
                 <label> message : <input type="text" id="message" name="message"> </label>
-                <label>Fichier : <input type="file" id="file" name="file"> </label>
-                <button>Répondre</button>
+                <label> Fichier : <input type="file" id="file" name="file"> </label>
+                <button> Répondre</button>
               </form>
             </section>
 
@@ -111,11 +111,9 @@
       console.log(params);
       let _id = params.get("id");
       console.log('id= ' + _id);
+      //requête get
+			axios.get("/api/forum/post/"+_id,{
 
-			axios.get("/api/forum/post/5",{
-        params: {
-          id : 5
-        }
       })
   				.then(response=>{
 						this.info = response.data;

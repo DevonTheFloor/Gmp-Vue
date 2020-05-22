@@ -6,6 +6,7 @@ const forumRouter = require('./routes/forum');
 const marketRouter = require('./routes/market');
 const rezoRouter = require('./routes/rezo');
 const testRouter = require('./routes/test');
+const auth = require('./middleware/auth');
 
 
 
@@ -24,15 +25,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.use("/",express.static(path.join(__dirname, 'public')));
-
-app.use("/ok/",(req,res,next)=>{
-  res.status(200).json({message: "Patientez nous appelons la police"})
-});
-
-
-app.use("/api/",express.static(path.join(__dirname, 'front')));
-app.use('/api/test',testRouter);
 app.use('/api/auth',usersRouter);
+app.use("/api/", express.static(path.join(__dirname, 'front')));
+app.use('/api/test',testRouter);
 app.use("/api/forum",forumRouter);
 app.use('/api/market', marketRouter);
 app.use('/api/rezo',rezoRouter);

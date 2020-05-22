@@ -1,0 +1,27 @@
+GET http://localhost:3030/api
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QiLCJpYXQiOjE1ODk5MDE4NjIsImV4cCI6MTU4OTk4ODI2Mn0.Lw29oaUHV3q31JABmk3AMqE6Dx_91D65eQEw7Xlzwmk
+
+###
+GET http://localhost:3030/api/forum/post/5
+###
+POST http://localhost:3030/api
+Content-Type: application/json
+
+{
+    "email":"test",
+    "mdp":"ttttt"
+}
+###
+POST http://localhost:3030/api/forum/post
+Content-Type: application/json
+
+{
+    "titre":"test",
+    "auteur":"moi",
+    "message":"coucou",
+    "file":{"filename":"htt"}
+}
+###
+GET http://localhost:3030/api/forum/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QiLCJpYXQiOjE1ODk5MDE4NjIsImV4cCI6MTU4OTk4ODI2Mn0.Lw29oaUHV3q31JABmk3AMqE6Dx_91D65eQEw7Xlzwmk
+###

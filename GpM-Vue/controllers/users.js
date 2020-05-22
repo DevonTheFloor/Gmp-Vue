@@ -29,7 +29,7 @@ const connectdb = require('../queries/connectdb');
 
     console.log("Connected DBs for login");
     let email = req.body.email;
-    let mdp =req.body.mdp;
+    //let mdp =req.body.mdp;
     var sql = "SELECT email,mdp FROM users WHERE email=?";
     var inserts = [email];
     sql = mysql.format(sql,inserts);
@@ -47,10 +47,9 @@ const connectdb = require('../queries/connectdb');
           if (!valid) {
             return res.status(401).json({ error: 'Mot de passe incorrect !' });
         }else {
-          res.status(200).json({/*email: elemt.email,*/
+          res.status(200).json({email: req.body.email,
             token: jwt.sign({ email: elemt.email },'RANDOM_TOKEN_SECRET',{ expiresIn: '24h' })
           })
-          
         }
       })
       .catch(error => res.status(500).json({message:"probleme de cryptage du token"}));
