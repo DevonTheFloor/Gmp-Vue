@@ -3,21 +3,36 @@ const connectdb = require('../queries/connectdb');
 
 exports.postOne = (req,res,next)=>{
 
-    let titre = req.body.titre;
-    let auteur= "lautre";
-    let message = req.body.message;
-    //let urlimg = "/api/images/dl/"+req.file.filename;
-
     console.log("Connecté mySQL on Xampp !!");
-    //var sql = "INSERT INTO forum VALUES(NULL,?,?,?,NOW())";
-    var sql = "INSERT INTO forum (titre,auteur,message,quand) VALUES(?,?,?,NOW())";
-    var inserts = [titre,auteur,message];
-    sql = mysql.format(sql,inserts);
-    connectdb.query(sql, function(err,result){
-        if (err) throw err ;
-        console.log("Message posté");
-        res.redirect("/api/forumVue.html");
-    });
+    if(req.file){
+        let titre = req.body.titre;
+        let auteur= "lautre";
+        let message = req.body.message;
+        let urlimg = "/api/images/dl/"+req.file.filename;
+
+        var sql = "INSERT INTO forum (titre,auteur,message,urlimg,quand) VALUES(?,?,?,?,NOW())";
+        var inserts = [titre,auteur,message,urlimg];
+        sql = mysql.format(sql,inserts);
+        connectdb.query(sql, function(err,result){
+            if (err) throw err ;
+            console.log("Message posté");
+            res.redirect("/api/forumVue.html");
+        });
+    } else {
+        let titre = req.body.titre;
+        let auteur= "lautre";
+        let message = req.body.message;
+
+        var sql = "INSERT INTO forum (titre,auteur,message,quand) VALUES(?,?,?,NOW())";
+        var inserts = [titre,auteur,message];
+        sql = mysql.format(sql,inserts);
+        connectdb.query(sql, function(err,result){
+            if (err) throw err ;
+            console.log("Message posté");
+            res.redirect("/api/forumVue.html");
+        });
+    }
+  
 }
 
 exports.getAll = (req,res,next)=>{
