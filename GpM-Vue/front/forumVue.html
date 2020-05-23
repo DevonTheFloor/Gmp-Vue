@@ -34,9 +34,11 @@
         </section>
       </div>
 
-      <button id="postforum">Poster un message</button>
+     
 
-      <div id="formpost" class=" justify-content-lg-center " >
+      <div id="messagesForum" class=" justify-content-lg-center " >
+
+        <button id="postforum" @click="poster">Poster un message</button>
 
         <section class=" col-lg-10" v-for="item in info.data" :key="item.id">
           <div class="listForum" >
@@ -73,16 +75,55 @@
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="JS/axios.js"></script>
 	<script>
-		const formpost = new Vue({
-			el:"#formpost",
+		const MessagesForum = new Vue({
+			el:"#messagesForum",
 			data:{
         info : null
       },
+      methods:{
+        /**
+        * affiche le formulaire pour poster un message
+        */
+        poster(){
+	      let ancre = document.getElementById('messagesForum');
+      	ancre.innerHTML= "";
+	      let formulaire = document.createElement('form');
+	      formulaire.setAttribute("class","formForum");
+	      formulaire.setAttribute("action","/api/forum/post");
+	      formulaire.setAttribute("method","post");
+	      formulaire.setAttribute("enctype","multipart/form-data");
+	      ancre.appendChild(formulaire);
+	      let libele = document.createElement('label');
+	      libele.textContent = "Titre : ";
+	      formulaire.appendChild(libele);
+	      let titre = document.createElement('input');
+	      titre.id = "titre";
+	      titre.name= "titre";
+	      libele.appendChild(titre);
+	      let sujet = document.createElement('textarea');
+	      sujet.id ="message";
+      	sujet.name = "message";
+	      formulaire.appendChild(sujet);
+	      let image = document.createElement('input');
+	      image.type = "file";
+	      image.id= "file";
+	      image.name = "file";
+	      formulaire.appendChild(image);
+	      let envoi = document.createElement('button');
+	      envoi.id ="envoyer";
+	      envoi.setAttribute("type","submit");
+	      envoi.textContent = "Poster";
+	      formulaire.appendChild(envoi);
+        }
+
+      },
      mounted(){
 
+      let token = localStorage.getItem('token');
+      console.log("tokenStorage: ",token);
       var config = {
       headers: { 
-
+          "Authorization":"Bearer "+token
         }
       };
        axios.get('http://localhost:3030/api/forum/posts',  config)
