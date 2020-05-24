@@ -144,10 +144,14 @@ ol {
   min-width: 85%;
   overflow: scroll;
 }
-.picmarket{
+.picmarket {
   width: 50%;
   border:2px solid black;
   box-shadow: 3px 3px 3px grey;
+}
+.imgMsg{
+  max-width: 50%;
+  background-origin: 2px solid white;
 }
 
 .disconnect{

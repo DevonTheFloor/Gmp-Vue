@@ -66,19 +66,38 @@ exports.getOne = (req,res,next)=>{
 
 exports.resForum = (req,res,next)=>{
 
-    let salon = "forum";
-    let auteur= "lautre";
-    let message = req.body.message;
-    let urlimg = "/api/images/dl/"+req.file.filename;
-    let idquestion = 5;
-
     console.log("Connecté mySQL on Xampp !!");
-    var sql = "INSERT INTO reponse VALUES(NULL,?,?,?,?,?,NOW())";
-    //var sql = "INSERT INTO forum (auteur,message,urlimgkidquestion,salon,quand) VALUES(?,?,?,?,NOW()))";
-    var inserts = [auteur,message,urlimg,idquestion,salon];
-    sql = mysql.format(sql,inserts);
-    connectdb.query(sql, function(err,result){
-        if (err) throw err ;
-        console.log("Reponse posté");
-    });
+    if(req.file){
+        let salon = req.body.salon;
+        let auteur= "lautre";
+        let message = req.body.message;
+        let urlimg = "/api/images/dl/"+req.file.filename;
+        let idquestion = req.body.idquestion;
+    
+        var sql = "INSERT INTO reponse VALUES(NULL,?,?,?,?,?,NOW())";
+        //var sql = "INSERT INTO forum (auteur,message,urlimgkidquestion,salon,quand) VALUES(?,?,?,?,NOW()))";
+        var inserts = [auteur,message,urlimg,idquestion,salon];
+        sql = mysql.format(sql,inserts);
+        connectdb.query(sql, function(err,result){
+            if (err) throw err ;
+            console.log("Reponse posté");
+        });
+    }else{
+        let salon = req.body.salon;
+        let auteur= "lautre";
+        let message = req.body.message;
+        let idquestion = req.body.idquestion;
+    
+        var sql = "INSERT INTO reponse VALUES(NULL,?,?,?,?,NOW())";
+        //var sql = "INSERT INTO forum (auteur,message,urlimgkidquestion,salon,quand) VALUES(?,?,?,?,NOW()))";
+        var inserts = [auteur,message,idquestion,salon];
+        sql = mysql.format(sql,inserts);
+        connectdb.query(sql, function(err,result){
+            if (err) throw err ;
+            console.log("Reponse posté");
+        });
+    }
+
+
+
 }

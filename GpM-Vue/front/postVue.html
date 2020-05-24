@@ -27,7 +27,7 @@
     </header>
 
     <main>
-      <h1>FORUM</h1>
+      <a href="forumVue.html"><h1>FORUM</h1></a>
       <div class="row justify-content-lg-center " >
         <section class=" col-lg-6">
           <p>  Forum groupomania soyez libre de parler de ce qu'il vous plaîra en lien ou non avec le travail. Pensez seulement à mettre des titres explicite à vos messages.</p>
@@ -42,6 +42,7 @@
             <p>Par : {{ item.auteur }}</p>
             <p>le: {{item.quand }}</p>
             <p class="msgForum"> {{ item.message}} </p>
+            <p><img :src="item.urlimg" class="imgMsg"></p>
             <p> </p>
 
             <section class="reponseForum">
@@ -55,6 +56,8 @@
 
             <section>
               <form class="repForum" action="/api/forum/response" method="post" enctype="multipart/form-data">
+                <input type="hidden" id="salon" name="salon" value="forum">
+                <!--<input type="hidden" id="id_question" name="id_question" :value="_id">-->
                 <label> auteur : <input type="text" id="auteur" name="auteur"> </label>
                 <label> message : <input type="text" id="message" name="message"> </label>
                 <label> Fichier : <input type="file" id="file" name="file"> </label>
