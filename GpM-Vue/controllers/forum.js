@@ -66,38 +66,55 @@ exports.getOne = (req,res,next)=>{
 
 exports.resForum = (req,res,next)=>{
 
-    console.log("Connecté mySQL on Xampp !!");
+    console.log("Connecté REPONSE forum!!");
     if(req.file){
-        let salon = req.body.salon;
-        let auteur= "lautre";
+        console.log('connection avec IMG');
+        let auteur= req.body.auteur;
         let message = req.body.message;
         let urlimg = "/api/images/dl/"+req.file.filename;
-        let idquestion = req.body.idquestion;
+        let id_question = req.body.id_question;
+        let salon = req.body.salon;
     
-        var sql = "INSERT INTO reponse VALUES(NULL,?,?,?,?,?,NOW())";
-        //var sql = "INSERT INTO forum (auteur,message,urlimgkidquestion,salon,quand) VALUES(?,?,?,?,NOW()))";
-        var inserts = [auteur,message,urlimg,idquestion,salon];
+        //var sql = "INSERT INTO reponse VALUES(NULL,?,?,?,?,?,NOW())";
+        var sql = "INSERT INTO reponse (auteur,message,urlimg,id_question,salon,quand) VALUES(?,?,?,?,?,NOW()))";
+        var inserts = [auteur,message,urlimg,id_question,salon];
         sql = mysql.format(sql,inserts);
         connectdb.query(sql, function(err,result){
             if (err) throw err ;
             console.log("Reponse posté");
         });
     }else{
-        let salon = req.body.salon;
-        let auteur= "lautre";
+        console.log('connecté response sans img');
+        let auteur= req.body.auteur;
         let message = req.body.message;
-        let idquestion = req.body.idquestion;
-    
-        var sql = "INSERT INTO reponse VALUES(NULL,?,?,?,?,NOW())";
-        //var sql = "INSERT INTO forum (auteur,message,urlimgkidquestion,salon,quand) VALUES(?,?,?,?,NOW()))";
-        var inserts = [auteur,message,idquestion,salon];
+        let id_question = req.body.id_question;
+        let salon = req.body.salon;
+        console.log('salon :',salon);
+        console.log('id_question',id_question);
+        //var sql = "INSERT INTO reponse VALUES(NULL,?,?,?,?,NOW())";
+        var sql = "INSERT INTO reponse (auteur,message,id_question,salon,quand) VALUES(?,?,?,?,NOW())";
+        var inserts = [auteur,message,id_question,salon];
         sql = mysql.format(sql,inserts);
         connectdb.query(sql, function(err,result){
             if (err) throw err ;
             console.log("Reponse posté");
+            res.redirect('/api/forum/post/'+id_question);
+
         });
     }
-
-
-
 }
+
+exports.getAllRes = (req,res,next)=>{
+
+    console.log("Connecté mySQL on Xampp !!");
+		console.log("reponse forum linked");
+		let id_question = req.body.id_question;
+		var sql = "SELECT * FROM reponse WHERE salon='forum' AND id_question=? ";
+		var inserts = [id_question];
+		sql = mysql.format(sql,inserts);
+    connectdb.query(sql, function(err,result){
+        if (err) throw err ;
+        console.log(result);
+        res.status(200).json(result);
+        });
+};

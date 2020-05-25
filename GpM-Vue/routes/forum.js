@@ -5,8 +5,9 @@ const forumCtrl = require('../controllers/forum');
 const auth = require('../middleware/auth');
 
 router.post('/post',multer, forumCtrl.postOne);
-router.post('/response',multer, forumCtrl.resForum);
+router.post('/reponse',multer, forumCtrl.resForum);
+router.post('/reponse/all', forumCtrl.getAllRes);
 router.get('/post/:id',forumCtrl.getOne);
-router.get('/posts',auth,  forumCtrl.getAll);
+router.get('/posts',auth,forumCtrl.getAll);
 
 module.exports = router;

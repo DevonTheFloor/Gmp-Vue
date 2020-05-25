@@ -45,34 +45,28 @@
             <p><img :src="item.urlimg" class="imgMsg"></p>
             <p> </p>
 
-            <section class="reponseForum">
+            <section class="reponseForum" v-for="res in resall" :key="res.id">
               <div class="listForum" >
-               <p>Par :</p>
-               <p>le: </p>
-               <p class="msgForum"> </p>
+               <p>Par : {{ res.auteur}} </p>
+               <p>le: {{ res.quand}} </p>
+               <p class="msgForum"> {{res.message}} </p>
                <p> </p>
              </div>
             </section>
 
             <section>
-              <form class="repForum" action="/api/forum/response" method="post" enctype="multipart/form-data">
-                <input type="hidden" id="salon" name="salon" value="forum">
-                <!--<input type="hidden" id="id_question" name="id_question" :value="_id">-->
-                <label> auteur : <input type="text" id="auteur" name="auteur"> </label>
-                <label> message : <input type="text" id="message" name="message"> </label>
+              <form class="repForum" enctype="multipart/form-data">
+                <input type="hidden" id="salon" name="salon" v-model="salon">
+                <input type="hidden" id="id_question" name="id_question" :value="id_question">
+                <input type="hidden" id="auteur" name="auteur" v-model="auteur">
+                <label> message : <textarea cols="30" id="message" name="message" v-model="message"> </textarea></label>
                 <label> Fichier : <input type="file" id="file" name="file"> </label>
-                <button> Répondre</button>
+                <button @click="responseForum"> Répondre</button>
               </form>
             </section>
 
           </div>
         </section >
-       
-  
-        
-
-				<p>{{info}} </p>
-
       </div>
      
     </main>
@@ -102,22 +96,50 @@
 		const formpost = new Vue({
 			el:"#getOne",
 			data:{
-				info : null
-      },
-      methods:{
+        info : null,
+        resall: null,
+        id_question: null,
+        auteur : null,
+        message : null,
+        salon : "forum"
         
       },
-     mounted(){
-    
-      //récupération de l'id du message dans l'url
-      let params = new URLSearchParams(document.location.search);
-      console.log(params);
-      let _id = params.get("id");
-      console.log('id= ' + _id);
-      //requête get
-			axios.get("/api/forum/post/"+_id,{
+      methods:{
+        responseForum(e){
+          e.preventDefault();
+          let token = localStorage.getItem('token');
 
-      })
+          axios.post("/api/forum/reponse",{
+
+            id_question : this.id_question,
+            auteur : this.auteur,
+            message : this.message,
+            salon : this.salon
+          },
+          
+          {
+            headers:{
+              "Authorization":"Bearer "+token
+            }
+          })
+          .then(response => {console.log(response)})
+          .catch(error => {console.log(error)});
+        },
+      },
+      mounted(){
+        let nameAuteur = localStorage.getItem('email');
+        this.auteur = nameAuteur;
+        let token = localStorage.getItem('token');
+        //récupération de l'id du message dans l'url
+        let params = new URLSearchParams(document.location.search);
+        console.log(params);
+        let _id = params.get("id");
+        console.log('id= ' + _id);
+        this.id_question = _id;
+
+        //requête get
+        axios.get("/api/forum/post/"+_id,{
+        })
   				.then(response=>{
 						this.info = response.data;
     			console.log(response.data);
@@ -127,7 +149,19 @@
 					})
 					.then(function () {
     				console.log('FINALY');
-  				});
+          });
+          
+        axios.post("/api/forum/reponse/all",{
+          id_question: this.id_question
+        },{
+          headers:{
+              "Authorization":"Bearer "+token
+            }
+        })
+          .then(response => {
+            this.resall = response.data;
+            console.log(response)})
+          .catch(error => {console.log(error)});
       } 
 		})
 	</script>

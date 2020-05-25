@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIND ???</title>
+</head>
+<body>
+    <div id="testor">
+        <p> {{ name }} </p>
+        <input type="text" :value="name">
+    </div>
+
+
+      <!-- development version, includes helpful console warnings -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let testing = new Vue({
+            el: "#testor",
+            data:{
+                name : null
+            },
+            mounted(){
+                let newname = "Jean Louiiiiiinnnnnnnns";
+                this.name = newname;
+            }
+            
+        })
+    </script>
+</body>
+</html>

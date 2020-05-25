@@ -27,12 +27,12 @@
     </header>
 
     <main>
-        <form action="http://localhost:3030/api/forum/post" method="post">
+        <form action="/api/forum/response" method="post">
           FORUM
             <label>titre : <input type="text" id="titre" name="titre"> </label>
             <label>auteur: <input type="text" id="auteur" name="auteur"> </label>
             <label>message: <textarea></textarea> </label>
-            <button type="submit">test form</button>
+            <button type="submit">test REsponse Forum</button>
         </form>
 <br>
 ==========================================================
@@ -54,6 +54,20 @@
             <label>File: <input type="file" id="file" name="file"> </label>
             <button type="submit">TEST OBJ</button>
         </form>
+
+        =========================================================
+        <form action="http://localhost:3030/api/forum/reponse" method="post" enctype="multipart/form-data">
+          TEST FORM POUR RESPONSE FORUM
+         
+            <label> auteur: <input type="text" id="auteur" name="auteur" value="Oim-D"> </label>
+            <label>message: <textarea id="message" name="message"></textarea> </label>
+            <label>id question: <input type="number" id="id_question" name="id_question" value="14"> </label>
+            <label>File: <input type="file" id="file" name="file"> </label>
+
+
+            <input type="hidden" id="salon" name="salon" value="forum">
+            <button type="submit">RESPONSE</button>
+        </form>
  
     </main>
     <footer>
@@ -73,7 +87,8 @@
       </div>
     </footer>
   </div>
-  <script type="text/javascript" src="JS/forum.js"></script>
+
 </body>
 
 </html>
+<label>id question: <input type="number" id="id_question" name="is_question"> </label>
