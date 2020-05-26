@@ -74,48 +74,74 @@
   <!-- development version, includes helpful console warnings -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="JS/axios.js"></script>
-	<script>
+  <script>
+
+   
+     
+      </script>
+      <script>
 		const MessagesForum = new Vue({
 			el:"#messagesForum",
 			data:{
         info : null
       },
       methods:{
-        /**
-        * affiche le formulaire pour poster un message
-        */
-        poster(){
-	      let ancre = document.getElementById('messagesForum');
-      	ancre.innerHTML= "";
-	      let formulaire = document.createElement('form');
-	      formulaire.setAttribute("class","formForum");
-	      formulaire.setAttribute("action","/api/forum/post");
-	      formulaire.setAttribute("method","post");
-	      formulaire.setAttribute("enctype","multipart/form-data");
-	      ancre.appendChild(formulaire);
-	      let libele = document.createElement('label');
-	      libele.textContent = "Titre : ";
-	      formulaire.appendChild(libele);
-	      let titre = document.createElement('input');
-	      titre.id = "titre";
-	      titre.name= "titre";
-	      libele.appendChild(titre);
-	      let sujet = document.createElement('textarea');
-	      sujet.id ="message";
-      	sujet.name = "message";
-	      formulaire.appendChild(sujet);
-	      let image = document.createElement('input');
-	      image.type = "file";
-	      image.id= "file";
-	      image.name = "file";
-	      formulaire.appendChild(image);
-	      let envoi = document.createElement('button');
-	      envoi.id ="envoyer";
-	      envoi.setAttribute("type","submit");
-	      envoi.textContent = "Poster";
-	      formulaire.appendChild(envoi);
-        }
+ 
+      /**
+      * * affiche le formulaire pour poster un message
+      */
+      poster(){
+        let ancre = document.getElementById('messagesForum');
+        ancre.innerHTML= "";
+        let formulaire = document.createElement('form');
+        formulaire.setAttribute("class","formForum");
+        //formulaire.setAttribute("action","/api/forum/post");
+        //formulaire.setAttribute("method","post");
+        formulaire.setAttribute("enctype","multipart/form-data");
+        ancre.appendChild(formulaire);
+        let libele = document.createElement('label');
+        libele.textContent = "Titre : ";
+        formulaire.appendChild(libele);
+        let titre = document.createElement('input');
+        titre.id = "titre";
+        titre.name= "titre";
+        libele.appendChild(titre);
+        let sujet = document.createElement('textarea');
+        sujet.id ="message";
+        sujet.name = "message";
+        formulaire.appendChild(sujet);
+        let image = document.createElement('input');
+        image.type = "file";
+        image.id= "file";
+        image.name = "file";
+        formulaire.appendChild(image);
+        let envoi = document.createElement('button');
+        envoi.id ="envoyer";
+        //envoi.setAttribute("type","submit");
+        envoi.textContent = "Poster";
+        formulaire.appendChild(envoi);
 
+        let envoyer = document.getElementById('envoyer');
+        envoyer.addEventListener("click",function(){
+
+          console.log("CLICK Envoyer!")
+          let token = localStorage.getItem('token');
+          let titre = document.getElementById('titre').value;
+          let message =  document.getElementById('message').value;
+          let auteur = localStorage.getItem('email')
+          axios.post("/api/forum/post",{
+             titre: titre,
+             auteur: auteur,
+             message : message
+           },{
+             headers:{
+               "Authorization":"Bearer "+token
+             }
+           })
+           .then(response =>{concole.log(response)})
+           .catch(error => {console.log(error)});
+        });
+        }
       },
         mounted(){
 
@@ -126,6 +152,9 @@
           "Authorization":"Bearer "+token
         }
       };
+      /**
+       * GET recupère tous les post du forum
+      */
        axios.get('http://localhost:3030/api/forum/posts',  config)
       .then((response) => {
       this.info = response,

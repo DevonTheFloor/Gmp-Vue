@@ -105,6 +105,9 @@
         
       },
       methods:{
+        /**
+         * Formulaire de réponse au message (auth)
+        */
         responseForum(e){
           e.preventDefault();
           let token = localStorage.getItem('token');
@@ -116,7 +119,6 @@
             message : this.message,
             salon : this.salon
           },
-          
           {
             headers:{
               "Authorization":"Bearer "+token
@@ -137,8 +139,11 @@
         console.log('id= ' + _id);
         this.id_question = _id;
 
-        //requête get
+        //requête get (auth) pour recupérer un message en fonction de l'id
         axios.get("/api/forum/post/"+_id,{
+          headers:{
+            "Authorization":"Bearer "+token
+          }
         })
   				.then(response=>{
 						this.info = response.data;
@@ -150,7 +155,8 @@
 					.then(function () {
     				console.log('FINALY');
           });
-          
+        
+          //requête post(auth) voir toutes les reponses d'un post choisi
         axios.post("/api/forum/reponse/all",{
           id_question: this.id_question
         },{

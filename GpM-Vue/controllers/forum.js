@@ -81,7 +81,8 @@ exports.resForum = (req,res,next)=>{
         sql = mysql.format(sql,inserts);
         connectdb.query(sql, function(err,result){
             if (err) throw err ;
-            console.log("Reponse posté");
+						console.log("Reponse posté");
+						res.redirect('/api/forum/post/'+id_question);
         });
     }else{
         console.log('connecté response sans img');
