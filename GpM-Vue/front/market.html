@@ -37,20 +37,38 @@
             <li>Autre</li>
         </ol>
     </nav>
-    <button id="addAnnonce" @click="postAnnonce">Poster une annonce</button>
 
-    <main>
-      <div id="affiMarket" class="row justify-content-lg-center " >
-        <section  class=" col-lg-6 of formForum" v-for="article in annonce" :key="article.id">
-            <div class="listForum">
-                <a  href="/api/market/post/:id"><h4> {{article.titre}} </h4></a>
-                <p> {{ article.annonce}} </p>
-                <img class="picmarket" :src="article.urlimg">
-            </div>
+    <main id="affiMarket" >
+        <button id="addAnnonce" @click="seeForm">Poster une annonce</button>
 
-         
-        </section>
-      </div>
+
+        <div class="justify-content-lg-center">
+          <section>
+            <form enctype="multipart/form-data" v-if="seen">
+              <input type="hidden" id="auteur" name="auteur" :value="email">
+              <label> Titre : <input type="text" id="titre" name="titre" v-model="titre"></label>
+              <label> Catégorie : 
+                <select id="categorie" name="categorie" v-model="categorie">
+                  <option value="auto ">Auto</option>
+                  <option value="maison" >Maison</option>
+                  <option value="infor" >Informatique</option>
+                  <option value="autre" >Autre</option>
+                </select> 
+              </label> 
+              <label>Annonce: <textarea id="annonce" name="annonce" v-model="annonce"></textarea></label>
+              <label> Photo: <input type="file" id="file" name="file"></label>
+              <button @click="annoncer"> Annoncer !</button>
+            </form>
+          </section>
+
+          <section  class=" col-lg-6 of formForum"  v-if="visible" v-for="article in annonce" :key="article.id">
+              <div class="listForum">
+                  <a  href="/api/market/post/:id"><h4> {{article.titre}} </h4></a>
+                  <p> {{ article.annonce}} </p>
+                  <img class="picmarket" :src="article.urlimg">
+              </div>
+          </section>
+        </div>
     </main>
     
     <footer class="messrezo justify-content-lg-center">
@@ -65,13 +83,36 @@
       let seeMarket = new Vue({
           el:"#affiMarket",
           data:{
-						annonce: null
+						annonce: null,
+            seen: false,
+            visible: true,
+            auteur: null,
+            titre: null,
+            categorie: null,
+            annonce: null
           },
           methods:{
-            postAnnonce(){
-            let affiMarket = document.getElementById('affiMarket');
-            affiMarket.innerHTML=" "; 
-            affiMarket.insertAdjacentHTML('afterbegin','<form action="/api/market/post" method="post" enctype="multipart/form-data"><label> Titre : <input type="text" id="titre" name="titre"></label><label> Catégorie : <select id="categorie" name="categorie"><option value"auto ">Auto</option><option value="maison" >Maison</option><option value="infor" >Informatique</option><option value="autre" >Autre</option></select> </label> Annonce: <textarea id="annonce" name="annonce"></textarea></label><label> Photo: <input type="file" id="file" name="file"></label><button type="submit">Annoncer !</button></form>');
+            seeForm(){
+              this.seen = true;
+              this.visible = false;
+            },
+            annoncer(e){
+              e.preventDefault();
+              let token = localStorage.getItem('token');
+              let email = localStorage.getItem('email');
+
+              axios.post("/api/market/post",{
+                auteur: email,
+                titre : this.titre,
+                categorie : this.categorie,
+                annonce : this.annonce
+              },{
+                headers:{
+                  "Authorization":"Bearer "+token
+                }
+              })
+              .then(response => {console.log(response)})
+              .catch(error => {console.log(error)});
             }
 					},
 					mounted(){

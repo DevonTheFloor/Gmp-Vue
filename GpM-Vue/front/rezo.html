@@ -29,13 +29,19 @@
       </div> 
     </header>
 
-    <main>
+    <main  id="chatrezo">
       <!--<div class="row justify-content-lg-center " >
         <section class=" col-lg-6 of">
           <p>  Thread de discussion Groupomania, soyez libre de parler de ce qu'il vous plaîra en lien ou non avec le travail.</p>
         </section>
       </div>-->
-      <section class="justify-content-lg-center formForum chat"  id="message">x</section>
+      <section class="justify-content-lg-center formForum chat"  id="message">
+        <div v-for="tweet in chat" :key="tweet.id">
+          <p>{{tweet.auteur}}</p>
+          <p>{{tweet.quand}}</p>
+          <p> {{tweet.message}}</p>
+        </div>
+      </section>
        
       
     </main>
@@ -43,16 +49,39 @@
     <footer class="messrezo justify-content-lg-center">
       <div class="col-lg-12">
         <form action="/api/rezo/post" method="post" >
-          <!--enctype="multipart/form-data"-->
-         <!--<input type="file" id="pj" name="pj">--> 
-       <label>auteur :  <input type="text" id="auteur" name="auteur"></label>
-          <label>Message: <textarea id="message" name="message"></textarea></label>
+          <input type="hidden" id="auteur" name="auteur" :value="email"></label>
+          <label>Message: <textarea id="message" name="message" v-model="message"></textarea></label>
           <button type="submit">Send</button>
         </form>
       </div>
     </footer>
   </div>
-  <script type="text/javascript" src="JS/rezo.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="JS/axios.js"></script>
+  <script type="text/javascript">
+  const chat = new Vue({
+    el:"#chatrezo",
+    data:{
+      chat: null
+
+    },
+    methoids:{},
+    mounted(){
+      let token = localStorage.getItem('token');
+
+      axios.get("/api/rezo/posts",{
+        headers:{
+          "Authorization":"Bearer "+token
+        }
+      })
+      .then(response => {
+        this.chat = response.data
+        console.log(response.data)})
+      .catch(error => {console.log(error)});
+    }
+  })
+
+  </script>
 </body>
 
 </html>

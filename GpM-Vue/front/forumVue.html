@@ -38,11 +38,19 @@
 
       <div id="messagesForum" class=" justify-content-lg-center " >
 
-        <button id="postforum" @click="poster">Poster un message</button>
+        <button id="postforum" @click="seeform">Poster un message</button>
 
-        <section class=" col-lg-10" v-for="item in info.data" :key="item.id">
+        <form v-if="seen" enctype="multipart/form-data">
+          <input type="hidden" id="auteur" name="auteur" :value="email">
+          <label>Titre : <input type="text" id="titre" name="titre" v-model="titre"> </label>
+          <label>Message : <textarea id="message" name="message" v-model="message"></textarea> </label>
+          <input type="file" id="file" name="file">
+          <button @click="poster">POSTER</button>
+        </form>
+
+        <section v-if="seeAll" class=" col-lg-10" v-for="item in info.data" :key="item.id">
           <div class="listForum" >
-            <button v-if="isadmin == 1">X</button>
+            <button >X</button>
             <a :href="'/api/postVue.html?id='+item._id"><h2> {{ item.titre }} </h2></a>
             <p> {{ item.auteur }} </p>
             <p> {{ item.message }} </p>
@@ -83,64 +91,36 @@
 		const MessagesForum = new Vue({
 			el:"#messagesForum",
 			data:{
-        info : null
+        info : null,
+        seen: false,
+        seeAll: true,
+        auteur:null,
+        titre: null,
+        message: null
       },
+
       methods:{
- 
-      /**
-      * * affiche le formulaire pour poster un message
-      */
-      poster(){
-        let ancre = document.getElementById('messagesForum');
-        ancre.innerHTML= "";
-        let formulaire = document.createElement('form');
-        formulaire.setAttribute("class","formForum");
-        //formulaire.setAttribute("action","/api/forum/post");
-        //formulaire.setAttribute("method","post");
-        formulaire.setAttribute("enctype","multipart/form-data");
-        ancre.appendChild(formulaire);
-        let libele = document.createElement('label');
-        libele.textContent = "Titre : ";
-        formulaire.appendChild(libele);
-        let titre = document.createElement('input');
-        titre.id = "titre";
-        titre.name= "titre";
-        libele.appendChild(titre);
-        let sujet = document.createElement('textarea');
-        sujet.id ="message";
-        sujet.name = "message";
-        formulaire.appendChild(sujet);
-        let image = document.createElement('input');
-        image.type = "file";
-        image.id= "file";
-        image.name = "file";
-        formulaire.appendChild(image);
-        let envoi = document.createElement('button');
-        envoi.id ="envoyer";
-        //envoi.setAttribute("type","submit");
-        envoi.textContent = "Poster";
-        formulaire.appendChild(envoi);
-
-        let envoyer = document.getElementById('envoyer');
-        envoyer.addEventListener("click",function(){
-
-          console.log("CLICK Envoyer!")
+        seeform(){
+          this.seen = true;
+          this.seeAll = false
+        },
+        poster(e){
+          e.preventDefault();
           let token = localStorage.getItem('token');
-          let titre = document.getElementById('titre').value;
-          let message =  document.getElementById('message').value;
-          let auteur = localStorage.getItem('email')
+          let email = localStorage.getItem('email');
+
           axios.post("/api/forum/post",{
-             titre: titre,
-             auteur: auteur,
-             message : message
+             titre: this.titre,
+             auteur: email,
+             message : this.message
            },{
              headers:{
                "Authorization":"Bearer "+token
              }
            })
-           .then(response =>{concole.log(response)})
+           .then(response =>{console.log(response)})
            .catch(error => {console.log(error)});
-        });
+           location.reload(); 
         }
       },
         mounted(){
